@@ -148,10 +148,10 @@ PR creation errors: Ensure branch has commits and is pushed: `git push -u origin
 
 Large audio files: Use Git LFS to avoid repo bloat.  
 
-###License  
+### License  
 MIT License — add a `LICENSE` file with the MIT text and update the copyright.  
 
-###MIT License  
+### MIT License  
 
 Copyright (c) 2026 Jonathan Peters  
 
