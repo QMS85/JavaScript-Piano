@@ -1,79 +1,191 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-      display: flex;
-     align-items: center;
-     justify-content: center;
-     background: #1F2428;  
-      min-height: 100vh;
-  }
-  
-  .container {
-    padding: 35px 40px;
-    border-radius: 20px;
-    background: #141414;
-  }
-  .container header {
-    color: #B2B2B2;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header h2 {
-    font-size: 1.6rem;
-    text-align: center;
-  }
-  
-  
-  .piano-keys {
-    display: flex;
-    list-style: none;
-    margin-top: 40px;
-  }
-  .piano-keys .key {
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-    position: relative;
-    text-transform: uppercase;
-  }
-  .piano-keys .black {
-    z-index: 2;
-    width: 40px;
-    height: 140px;
-    margin: 0 -22px 0 -22px;
-    border-radius: 0 0 5px 5px;
-    background: linear-gradient(#333, #000);
-  }
-  .piano-keys .black.active {
-    box-shadow: inset -5px -10px 10px rgba(255,255,255,0.1);
-    background:linear-gradient(to bottom, #000, #434343);
-  }
-  .piano-keys .white {
-    height: 230px;
-    width: 70px;
-    border-radius: 8px;
-    border: 1px solid #000;
-    background: linear-gradient(#fff 96%, #eee 4%);
-  }
-  .piano-keys .white.active {
-    box-shadow: inset -5px 5px 20px rgba(0,0,0,0.2);
-    background:linear-gradient(to bottom, #fff 0%, #eee 100%);
-  }
-  .piano-keys .key span {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    color: #A2A2A2;
-    font-size: 1.13rem;
-    text-align: center;
-  }
-  
-  .piano-keys .black span {
-    bottom: 13px;
-    color: #888888;
-  }
-  
-  
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Page layout */
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(-45deg,#1a1a1a,#333,#555,#222);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* Header */
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+header h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 0.4px;
+  animation: fadeIn 1.6s ease;
+}
+
+/* Controls row */
+.controls-row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.left-controls, .right-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button {
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+button:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+button:disabled { background: #666; color: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Tempo control */
+.tempo-control {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+}
+#tempo { width: 220px; }
+#tempo-value { font-weight: 700; min-width: 48px; text-align: left; }
+
+/* Piano keys */
+main { margin-top: 14px; display: flex; flex-direction: column; gap: 18px; align-items: center; }
+
+.piano-keys {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  padding: 6px;
+  flex-wrap: nowrap;
+  user-select: none;
+}
+
+.key {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.25);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  cursor: pointer;
+  padding-bottom: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+.key span { font-weight: 700; font-size: 0.95rem; pointer-events: none; }
+
+/* White keys */
+.key.white {
+  background: #fff;
+  color: #000;
+  width: calc((100% - 24px) / 5);
+  max-width: 140px;
+  min-width: 48px;
+  height: 220px;
+}
+
+/* Black keys */
+.key.black {
+  background: #000;
+  color: #fff;
+  width: calc((100% - 24px) / 7);
+  max-width: 84px;
+  min-width: 36px;
+  height: 140px;
+  margin-top: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Active / pressed state */
+.key.active {
+  transform: scale(0.96);
+  box-shadow: 0 12px 30px rgba(255,204,0,0.25);
+  background: radial-gradient(circle, #ffecb3 0%, #ffcc00 60%);
+}
+
+/* Hover */
+.key:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 36px rgba(0,0,0,0.35); }
+
+/* Saved recordings list */
+.saved-recordings { width: 100%; max-width: 760px; margin: 0 auto; }
+#recordings-list { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+#recordings-list li {
+  display:flex; align-items:center; justify-content:space-between;
+  background: rgba(255,255,255,0.04); padding:8px 10px; border-radius:8px;
+  gap:8px;
+}
+.recording-meta { display:flex; gap:8px; align-items:center; flex:1; overflow:hidden; }
+.recording-name { font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.recording-actions { display:flex; gap:6px; align-items:center; }
+
+/* QR container */
+.qr-container { display:flex; justify-content:center; margin-top:12px; }
+
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Light theme overrides */
+body.light-theme {
+  background: linear-gradient(90deg,#f3f4f6,#e6e7e9);
+  color: #111;
+}
+body.light-theme .container { background: rgba(255,255,255,0.85); }
+body.light-theme button { background: #0ea5a4; color: #fff; }
+body.light-theme .key.white { background: #fff; color: #000; }
+body.light-theme .key.black { background: #111; color: #fff; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .key.white { height: 180px; }
+  .key.black { height: 110px; margin-top: 60px; }
+  #tempo { width: 160px; }
+}
+@media (max-width: 600px) {
+  header h2 { font-size: 1.25rem; }
+  .controls-row { gap: 8px; }
+  .left-controls, .right-controls { gap: 6px; }
+  .key.white { height: 120px; min-width: 40px; }
+  .key.black { height: 80px; margin-top: 40px; min-width: 28px; }
+  #tempo { width: 120px; }
+}
+
