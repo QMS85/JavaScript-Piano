@@ -5,7 +5,7 @@
 
 JavaScript Piano is a lightweight, responsive web piano that supports mouse, touch, and keyboard input. It includes recording with timestamped notes, tempo-adjustable playback, save/load to localStorage, JSON export/import, QR code sharing, and a dark/light theme toggle. Audio files expected in the project root: a.wav b.wav c.wav d.wav e.wav. Serve the project over HTTP when testing audio.  
 
-###Features  
+### Features  
 - Play via mouse, touch, and keyboard keys `a b c d e`.  
 
 - Record melodies with timestamps.  
@@ -22,7 +22,7 @@ JavaScript Piano is a lightweight, responsive web piano that supports mouse, tou
 
 - Responsive layout for mobile, tablet, and desktop.  
 
-###Quick Start  
+### Quick Start  
 bash
 ```
 # Clone repository
@@ -43,10 +43,10 @@ npx http-server . -p 8000
 # http://localhost:8000
 ```
 
-Required files  
+### Required files  
 Place `a.wav, b.wav, c.wav, d.wav, e.wav` in the project root. If audio files are large, consider using Git LFS.  
 
-Development Workflow  
+### Development Workflow  
 Run these commands from the project root inside VS Code integrated terminal (Git Bash). The feature branch used here is JavaScript-Piano-Updates.  
 bash
 ```
@@ -54,7 +54,6 @@ bash
 git --version  
 gh --version  
 gh auth status  
-
 
 # Ensure main is up to date  
 git checkout main  
@@ -91,7 +90,7 @@ gh pr view --web
 gh pr merge --squash --delete-branch --subject "feat: piano updates" --body "Merge piano updates"  
 ```
 
-Optional Tag and Release  
+### Optional Tag and Release  
 bash  
 ```
 git checkout main  
@@ -100,7 +99,7 @@ git tag -a v1.1.0 -m "v1.1.0: piano UI, recording, import/export, QR, tempo"
 git push origin v1.1.0  
 gh release create v1.1.0 --title "v1.1.0" --notes "Add responsive piano UI, recording, import/export, QR sharing, tempo control"  
 ```  
-Optional Git LFS for audio  
+### Optional Git LFS for audio  
 bash  
 ```
 # Install and enable LFS (one time)  
@@ -119,33 +118,24 @@ git commit -m "chore: add audio assets via LFS"
 git push  
 ```  
 
-###Testing Checklist  
-Serve via HTTP: `python -m http.server 8000 or npx http-server . -p 8000.`  
+### Testing Checklist  
+- Serve via HTTP: `python -m http.server 8000 or npx http-server . -p 8000.`  
+- Open `http://localhost:8000`.  
+- Verify keys play audio (a.wav..e.wav).  
+- Record → Stop → Playback current recording.  
+- Adjust tempo slider and confirm playback speed changes.  
+- Save a recording and confirm it appears in Saved Recordings.   
+- Export JSON and import it back.   
+- Generate QR for a recording and scan from another device to import.  
+- Toggle theme and verify styles.   
+- Check DevTools console for errors.   
 
-Open `http://localhost:8000`.  
-
-Verify keys play audio (a.wav..e.wav).  
-
-Record → Stop → Playback current recording.  
-
-Adjust tempo slider and confirm playback speed changes.  
-
-Save a recording and confirm it appears in Saved Recordings.  
-
-Export JSON and import it back.  
-
-Generate QR for a recording and scan from another device to import.  
-
-Toggle theme and verify styles.  
-
-Check DevTools console for errors.  
-
-###Troubleshooting   
+### Troubleshooting   
 Audio not playing: Ensure files exist and you are serving over HTTP (browsers block audio on `file://`).  
 
 gh authentication 401: Run `gh auth login --web` and follow prompts or create a PAT with scopes `repo, read:org, admin:public_key`. Use `echo "TOKEN" | gh auth login --with-token`.   
 
-Uncommitted changes block branch switch: Commit or stash changes:  
+### Uncommitted changes block branch switch: Commit or stash changes:  
 bash  
 ```
 git add .
